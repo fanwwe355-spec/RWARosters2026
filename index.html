@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RWA Rosters</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#07080b;color:#f5f5f5;font-family:Inter,Arial,sans-serif}
+header{position:sticky;top:0;z-index:5;background:rgba(7,8,11,.94);backdrop-filter:blur(12px);border-bottom:1px solid #252831}
+nav{max-width:1200px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:16px 20px}.brand{font-weight:950;letter-spacing:3px}.brand span{color:#e3262e}
+nav a{color:#aaa;text-decoration:none;margin-left:20px;font-size:13px;font-weight:800}nav a:hover{color:white}
+.hero{max-width:1200px;margin:auto;padding:70px 20px 45px}.eyebrow{letter-spacing:4px;color:#888;font-size:12px;font-weight:800}.hero h1{font-size:clamp(42px,7vw,76px);line-height:.9;margin:12px 0;font-weight:1000}.hero p{color:#999;max-width:600px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:25px}.btn{border:0;border-radius:9px;padding:13px 18px;font-weight:900;cursor:pointer;background:#242731;color:#fff}.btn.red{background:#e3262e}.btn:hover{filter:brightness(1.12)}
+.wrap{max-width:1200px;margin:auto;padding:0 20px 70px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:#111319;border:1px solid #252831;border-radius:18px;overflow:hidden;min-height:330px}.head{padding:22px}.head h2{margin:0;font-size:27px}.head small{opacity:.75}.rage .head{background:linear-gradient(135deg,#8d0c13,#e3262e)}.lightning .head{background:linear-gradient(135deg,#075b99,#2998e8)}.rxt .head{background:linear-gradient(135deg,#4c515a,#8d929b)}
+.list{padding:12px}.w{padding:13px 10px;border-bottom:1px solid #242731}.w:last-child{border:0}.w strong{display:block}.w em{display:block;color:#8f95a0;font-size:11px;font-style:normal;margin-top:3px}.empty{text-align:center;color:#777;padding:45px 10px}
+section.title{max-width:1200px;margin:0 auto;padding:10px 20px 18px}section.title h2{font-size:26px}
+.modal{display:none;position:fixed;inset:0;background:#000b;z-index:20;align-items:center;justify-content:center;padding:18px}.modal.show{display:flex}.box{width:min(520px,100%);background:#12141a;border:1px solid #30343e;border-radius:18px;padding:23px}.box h2{margin-top:0}label{font-size:12px;color:#a8adb7;font-weight:800}input,select{width:100%;padding:13px;margin:7px 0 15px;background:#08090d;color:#fff;border:1px solid #30343e;border-radius:9px}.close{float:right;background:none;border:0;color:#aaa;font-size:25px;cursor:pointer}.notice{color:#777;font-size:11px;margin-top:12px}.adminrow{display:flex;gap:8px;align-items:center;border-bottom:1px solid #292d36;padding:10px 0}.adminrow span{flex:1}.danger{background:#761d24}
+footer{border-top:1px solid #22252c;text-align:center;color:#666;padding:28px;font-size:11px}
+@media(max-width:800px){.grid{grid-template-columns:1fr}nav .links{display:none}}
+</style>
+</head>
+<body>
+<header><nav><div class="brand">RWA<span>.</span>ROSTERS</div><div class="links"><a href="#rosters">ROSTERS</a><a href="#join">JOIN RWA</a><a href="#" onclick="adminOpen()">STAFF</a></div></nav></header>
+<main>
+<div class="hero"><div class="eyebrow">RUTHLESS WRESTLING ATTRACTION</div><h1>CURRENT<br>ROSTERS.</h1><p>The official RWA roster portal. Explore the stars of RAGE, LIGHTNING and RXT.</p><div class="actions"><button class="btn red" onclick="joinOpen()">JOIN RWA</button><button class="btn" onclick="document.getElementById('rosters').scrollIntoView({behavior:'smooth'})">VIEW ROSTERS</button></div></div>
+<section id="rosters" class="wrap"><div class="grid">
+<div class="card rage"><div class="head"><h2>🔴 RAGE</h2><small>Saturday • 4:00 PM EST</small></div><div id="rage" class="list"></div></div>
+<div class="card lightning"><div class="head"><h2>🔵 LIGHTNING</h2><small>Sunday • 4:00 PM EST</small></div><div id="lightning" class="list"></div></div>
+<div class="card rxt"><div class="head"><h2>⚪ RXT</h2><small>Wednesday • 5:00 PM EST</small></div><div id="rxt" class="list"></div></div>
+</div></section>
+</main>
+<footer>RWA ROSTERS • Ruthless Wrestling Attraction</footer>
+
+<div id="join" class="modal"><div class="box"><button class="close" onclick="closeAll()">×</button><h2>Join RWA</h2><label>BRAND</label><select id="jb"><option value="rage">🔴 RAGE</option><option value="lightning">🔵 LIGHTNING</option><option value="rxt">⚪ RXT</option></select><label>GIMMICK NAME</label><input id="jn" placeholder="JAMES ARTHUR"><label>DISCORD USERNAME</label><input id="jd" placeholder="@username"><button class="btn red" style="width:100%" onclick="join()">SUBMIT REQUEST</button><div class="notice">In the production version, requests should go to the RWA staff database for approval.</div></div></div>
+
+<div id="admin" class="modal"><div class="box"><button class="close" onclick="closeAll()">×</button><h2>RWA Staff</h2><p style="color:#888;font-size:12px">Prototype staff panel. Production authentication should be server-side.</p><label>STAFF PASSWORD</label><input id="pw" type="password" placeholder="Password"><button class="btn red" onclick="login()">LOGIN</button><div id="panel" style="display:none;margin-top:18px"><label>ADD WRESTLER</label><select id="ab"><option value="rage">RAGE</option><option value="lightning">LIGHTNING</option><option value="rxt">RXT</option></select><input id="an" placeholder="Gimmick name"><button class="btn" onclick="add()">ADD</button><div id="alist" style="margin-top:12px"></div></div></div></div>
+
+<script>
+const KEY="rwa-rosters";const PASS="CHANGE-ME";
+let d=JSON.parse(localStorage.getItem(KEY)||'{"rage":[],"lightning":[],"rxt":[]}');
+function save(){localStorage.setItem(KEY,JSON.stringify(d));render()}
+function esc(x){return String(x).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function render(){for(const b of ['rage','lightning','rxt'])document.getElementById(b).innerHTML=d[b].length?d[b].map(x=>`<div class="w"><strong>${esc(x.name)}</strong>${x.discord?`<em>${esc(x.discord)}</em>`:''}</div>`).join(''):'<div class="empty">No wrestlers yet.</div>';renderAdmin()}
+function joinOpen(){document.getElementById('join').classList.add('show')}
+function adminOpen(){document.getElementById('admin').classList.add('show')}
+function closeAll(){document.querySelectorAll('.modal').forEach(x=>x.classList.remove('show'))}
+function join(){let b=jb.value,n=jn.value.trim(),u=jd.value.trim();if(!n)return alert('Enter a gimmick name.');d[b].push({name:n,discord:u});save();closeAll();alert('Request submitted in this prototype.')}
+function login(){if(pw.value!==PASS)return alert('Incorrect password.');document.getElementById('panel').style.display='block';renderAdmin()}
+function add(){let b=ab.value,n=an.value.trim();if(!n)return;d[b].push({name:n,discord:''});an.value='';save()}
+function remove(b,i){if(confirm('Remove '+d[b][i].name+'?')){d[b].splice(i,1);save()}}
+function renderAdmin(){let el=document.getElementById('alist');if(!el)return;el.innerHTML=['rage','lightning','rxt'].flatMap(b=>d[b].map((x,i)=>`<div class="adminrow"><span>${b.toUpperCase()} — ${esc(x.name)}</span><button class="btn danger" onclick="remove('${b}',${i})">REMOVE</button></div>`)).join('')}
+render();
+</script>
+</body></html>
